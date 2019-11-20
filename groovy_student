@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'yourvarname', defaultValue: '127.0.0.1', description: 'Test parameters')
+    }
+    stages {
+        stage('parameter test') {
+            steps {
+                sh '''
+                    export PGPASSWORD="000000"
+                    pg_dump -h ${yourvarname} -U postgres -d postgres >> my_test
+                sh '''
+            }
+        }
+    }
+}
